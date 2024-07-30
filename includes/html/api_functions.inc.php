@@ -26,6 +26,7 @@ use App\Models\PollerGroup;
 use App\Models\Port;
 use App\Models\PortGroup;
 use App\Models\PortsFdb;
+use App\Models\PortVlan;
 use App\Models\Sensor;
 use App\Models\ServiceTemplate;
 use App\Models\UserPref;
@@ -1110,6 +1111,21 @@ function get_port_ip_addresses(Illuminate\Http\Request $request)
 
         return api_success(array_merge($ipv4, $ipv6), 'addresses');
     });
+}
+
+function get_port_vlans(Illuminate\Http\Request $request)
+{
+    $port_id = $request->route('portid');
+
+    $port = Port::hasAccess(Auth::user())->findOrFail($port_id);
+
+    $vlans = $port->vlans()->get();
+    
+    if ($vlans->isEmpty()) {
+        return api_error(404, "Port $port_id does not have any VLANs");
+    }
+
+    return api_success($vlans, 'vlans');
 }
 
 function get_network_ip_addresses(Illuminate\Http\Request $request)
@@ -2630,6 +2646,17 @@ function list_vlans(Illuminate\Http\Request $request)
     }
 
     return api_success($vlans, 'vlans');
+}
+
+function list_ports_vlans(Illuminate\Http\Request $request)
+{
+    $ports_vlans = PortVlan::hasAccess(Auth::user())->get();
+    
+    if ($ports_vlans->isEmpty()) {
+        return api_error(404, 'Port-VLAN mappings do not exist');
+    }
+
+    return api_success($ports_vlans, 'ports_vlans');
 }
 
 function list_links(Illuminate\Http\Request $request)

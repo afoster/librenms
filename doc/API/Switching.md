@@ -35,6 +35,45 @@ Output:
 }
 ```
 
+### `list_ports_vlans`
+
+Get a list of all Port-VLAN mappings.
+
+Route: `/api/v0/resources/ports_vlans`
+
+Input:
+
+-
+
+Example:
+
+```curl
+curl -H 'X-Auth-Token: YOURAPITOKENHERE' https://librenms.org/api/v0/resources/ports_vlans
+```
+
+Output:
+
+```json
+{
+    "status": "ok",
+    "ports_vlans": [
+        {
+            "port_vlan_id": 1,
+            "device_id": 5,
+            "port_id": 31,
+            "vlan": 1,
+            "baseport": 118,
+            "priority": 0,
+            "state": "unknown",
+            "cost": 0,
+            "untagged": 1
+        },
+        ...
+    ],
+    "count": 100
+}
+```
+
 ### `get_vlans`
 
 Get a list of all VLANs for a given device.

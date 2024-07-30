@@ -136,6 +136,7 @@ Route::prefix('v0')->namespace('\App\Api\Controllers')->group(function () {
     Route::prefix('ports')->group(function () {
         Route::get('{portid}', 'LegacyApiController@get_port_info')->name('get_port_info');
         Route::get('{portid}/ip', 'LegacyApiController@get_port_ip_addresses')->name('get_port_ip_info');
+        Route::get('{portid}/vlans', 'LegacyApiController@get_port_vlans')->name('get_port_vlans');
         Route::get('search/{field}/{search?}', 'LegacyApiController@search_ports')->name('search_ports')->where('search', '.*');
         Route::get('mac/{search}', 'LegacyApiController@search_by_mac')->name('search_mac');
         Route::get('', 'LegacyApiController@get_all_ports')->name('get_all_ports');
@@ -167,6 +168,7 @@ Route::prefix('v0')->namespace('\App\Api\Controllers')->group(function () {
         Route::get('links', 'LegacyApiController@list_links')->name('list_links');
         Route::get('sensors', 'LegacyApiController@list_sensors')->name('list_sensors');
         Route::get('vlans', 'LegacyApiController@list_vlans')->name('list_vlans');
+        Route::get('ports_vlans', 'LegacyApiController@list_ports_vlans')->name('list_ports_vlans');
     });
 
     Route::get('inventory/{hostname}', 'LegacyApiController@get_inventory')->name('get_inventory');

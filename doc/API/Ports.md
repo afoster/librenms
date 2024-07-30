@@ -380,6 +380,45 @@ Output:
 }
 ```
 
+### `get_port_vlans`
+
+Get all VLANs for a given port id.
+
+Route: `/api/v0/ports/:portid/vlans`
+
+- portid must be an integer
+
+Input:
+
+  -
+
+Example:
+
+```curl
+curl -H 'X-Auth-Token: YOURAPITOKENHERE' https://librenms.org/api/v0/ports/323/vlans
+```
+
+Output:
+
+```json
+{
+  "status": "ok",
+  "vlans": [
+    {
+      "port_vlan_id": 17,
+      "device_id": 3,
+      "port_id": 323,
+      "vlan": 1,
+      "baseport": 1,
+      "priority": 0,
+      "state": "unknown",
+      "cost": 0,
+      "untagged": 1
+    }
+  ]
+}
+```
+
 ### `get_port_description`
 
 Get the description (`ifAlias`) for a given port id.
